@@ -1,16 +1,7 @@
 # mukrata_sau_app
 
-A new Flutter project.
+แอปหมูกระทะ
 
-## Getting Started
+<img width="125px" src="https://github.com/TS2811/mukrata_sau_app/assets/165863059/18657195-195b-442b-899c-f4b433144316">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="125px" src="[https://github.com/TS2811/mukrata_sau_app/assets/165863059/18657195-195b-442b-899c-f4b433144316](https://github.com/TS2811/mukrata_sau_app/assets/165863059/a8fb4e6a-e204-433b-91a0-2c4a496a2f4b)">
