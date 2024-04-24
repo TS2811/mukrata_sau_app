@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -63,18 +62,32 @@ class _ShowPayBillUIState extends State<ShowPayBillUI> {
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
               widget.imageFile == null
-              ?Image.asset(
-                'assets/images/camera.jpg',
-                width: MediaQuery.of(context).size.width * 0.35,
-                height: MediaQuery.of(context).size.width * 0.35,
-                fit: BoxFit.cover,
-              )
-              :Image.file(
-                widget.imageFile!,
-                width: MediaQuery.of(context).size.width * 0.35,
-                height: MediaQuery.of(context).size.width * 0.35,
-                fit: BoxFit.cover,
-              ),
+                  ? Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.width * 0.5,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle, // กำหนดรูปร่างเป็นวงกลม
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/camera.jpg',
+                          ), // รูปภาพของวงกลม
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.width * 0.5,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle, // กำหนดรูปร่างเป็นวงกลม
+                        image: DecorationImage(
+                          image: FileImage(
+                            widget.imageFile!,
+                          ), // รูปภาพของวงกลม
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),

@@ -41,7 +41,7 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
   bool _abultStatus = false;
   bool _babyStatus = false;
 
-  int _wsterStatus = 1;
+  int _wsterStatus = 0;
 
   TextEditingController _adultCtrl = TextEditingController(text: '0');
   TextEditingController _babyCtrl = TextEditingController(text: '0');
@@ -106,7 +106,7 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                       value: _abultStatus,
                       onChanged: (ParamValue) {
                         setState(() {
-                          _abultStatus = _abultStatus == true ? false : true;
+                          _abultStatus = ParamValue!;
                         });
                       },
                     ),
@@ -114,15 +114,20 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                       'ผู้ใหญ่ 299 บาท/คน จำนวน ',
                     ),
                     Expanded(
+                      flex: 3,
                       child: TextField(
+                        enabled: _abultStatus == true,
                         controller: _adultCtrl,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(),
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    Text(
-                      '   คน',
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        '   คน',
+                      ),
                     ),
                   ],
                 ),
@@ -140,15 +145,20 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                       'เด็ก 69 บาท/คน จำนวน ',
                     ),
                     Expanded(
+                      flex: 1,
                       child: TextField(
+                        enabled: _babyStatus == true,
                         controller: _babyCtrl,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(),
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    Text(
-                      '   คน',
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        '   คน',
+                      ),
                     ),
                   ],
                 ),
@@ -205,15 +215,20 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                       'โค้ก 20 บาท/ขวด จำนวน ',
                     ),
                     Expanded(
+                      flex: 1,
                       child: TextField(
+                        enabled: _wsterStatus == 2,
                         controller: _cokeCtrl,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(),
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    Text(
-                      '   ขวด',
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        '   ขวด',
+                      ),
                     ),
                   ],
                 ),
@@ -227,6 +242,7 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                     ),
                     Expanded(
                       child: TextField(
+                        enabled: _wsterStatus == 2,
                         controller: _pureCtrl,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(),
@@ -258,7 +274,7 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                   height: MediaQuery.of(context).size.height * 0.045,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.pink,
+                      color: Color.fromARGB(255, 173, 38, 38),
                     ),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -295,7 +311,7 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                     Expanded(
                       flex: 3,
                       child: ElevatedButton.icon(
-                        onPressed: () {
+                        onPressed: (_abultStatus == true || _babyStatus == true) && _wsterStatus > 0 ? () {
                           double _adultPay = _abultStatus == false
                               ? 0
                               : (int.parse(_adultCtrl.text) * 299);
@@ -336,10 +352,11 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                                 pure: _pureCtrl.text,
                                 memberType: _memberTypeSelected,
                                 totalPay: _totalPay,
+                                imageFile: _imageFromCamera,
                               ),
                             ),
                           );
-                        },
+                        } : null,
                         icon: Icon(
                           FontAwesomeIcons.moneyBillWave,
                           color: Colors.white,
@@ -370,7 +387,19 @@ class _CalculatePayBillUIState extends State<CalculatePayBillUI> {
                     Expanded(
                       flex: 2,
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _abultStatus = false;
+                            _babyStatus = false;
+                            _adultCtrl = TextEditingController(text: '0');
+                            _babyCtrl = TextEditingController(text: '0');
+                            _cokeCtrl = TextEditingController(text: '0');
+                            _pureCtrl = TextEditingController(text: '0');
+                            _wsterStatus = 0;
+                            _imageFromCamera = null;
+                            _memberTypeSelected = 'ไม่เป็นสมาชิก';
+                          });
+                        },
                         icon: Icon(
                           Icons.cancel_rounded,
                           color: Colors.white,
